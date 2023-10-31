@@ -35,11 +35,12 @@ jobs:
         path: main
 
     - name: deploy
-      run: mkdir -p ~/.ssh
-      run: echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-      run: chmod 600 ~/.ssh/id_rsa
-      run: ssh-keyscan -H %SSH_HOST > ~/.ssh/known_hosts
-      run: ssh ${SSH_USER}@${SSH_HOST} && ls
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H %SSH_HOST > ~/.ssh/known_hosts
+        ssh ${SSH_USER}@${SSH_HOST} && ls
       env:
         SSH_USER: ${{ secrets.SSH_USER }}
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
