@@ -39,7 +39,9 @@ jobs:
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        echo "start keyscan"
         ssh-keyscan -H %SSH_HOST > ~/.ssh/known_hosts
+        echo "ssh connect"
         ssh ${SSH_USER}@${SSH_HOST} && ls
       env:
         SSH_USER: ${{ secrets.SSH_USER }}
