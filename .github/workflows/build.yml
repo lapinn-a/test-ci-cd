@@ -39,9 +39,11 @@ jobs:
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
         echo "ssh connect"
         ssh ${SSH_USER}@${SSH_HOST} && ls
       env:
         SSH_USER: ${{ secrets.SSH_USER }}
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_HOST_KEY: ${{ secrets.SSH_HOST_KEY }}
