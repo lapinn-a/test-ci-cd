@@ -17,3 +17,9 @@ jobs:
 
     - name: build
       run: go build main.go
+
+    - name: store artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build
+        path: build
