@@ -40,6 +40,7 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
+        ls -Rla
         echo "ssh connect"
         scp ./main ${SSH_USER}@${SSH_HOST}:~/shared
         ssh ${SSH_USER}@${SSH_HOST} 'pkill shared;'
