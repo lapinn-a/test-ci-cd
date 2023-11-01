@@ -36,7 +36,7 @@ func grafana_query(w http.ResponseWriter, req *http.Request) {
 func main() {
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
-	http.HandleFunc("/grafana", grafana_ok)
+	http.HandleFunc("/grafana/", grafana_ok)
 	http.HandleFunc("/grafana/metrics", grafana_metrics)
 	http.HandleFunc("/grafana/metric-payload-options", grafana_metric_payload_options)
 	http.HandleFunc("/grafana/query", grafana_query)
