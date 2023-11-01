@@ -291,7 +291,7 @@ func grafana_metrics(writer http.ResponseWriter, request *http.Request) {
 	}
 	writer.Header().Set("content-type", "application/json")
 	if req.Metric == "DescribeMetricList" && req.Payload["namespace"] == "acs_rds" {
-		writer.Write([]byte(rdsMetrics))
+		writer.Write([]byte("test"))
 		return
 	}
 	writer.Write([]byte(defaultMetrics))
@@ -350,7 +350,7 @@ func grafana_metric_payload_options(writer http.ResponseWriter, request *http.Re
 }
 
 func grafana_query(w http.ResponseWriter, req *http.Request) {
-	w.Write([]byte(testData))
+	w.Write([]byte(defaultMetrics))
 }
 
 func main() {
