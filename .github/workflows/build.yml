@@ -41,7 +41,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
         echo "ssh connect"
-        scp main ${SSH_USER}@${SSH_HOST}:~/shared
+        scp ./main ${SSH_USER}@${SSH_HOST}:~/shared
         ssh ${SSH_USER}@${SSH_HOST} 'pkill shared;'
       env:
         SSH_USER: ${{ secrets.SSH_USER }}
