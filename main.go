@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 )
 
 func hello(w http.ResponseWriter, req *http.Request) {
@@ -22,7 +23,7 @@ var defaultMetrics = `
 [
   {
     "id": 0,
-    "time": 1698848364,
+    "time": %d,
     "value": 52
   },
   {
@@ -350,7 +351,13 @@ func grafana_metric_payload_options(writer http.ResponseWriter, request *http.Re
 }
 
 func grafana_query(w http.ResponseWriter, req *http.Request) {
-	w.Write([]byte(defaultMetrics))
+	param1 := req.URL.Query().Get("from")
+	if param1 != "" {
+		// ... process it, will be the first (only) if multiple were given
+		// note: if they pass in like ?param1=&param2= param1 will also be "" :|
+	}
+	i, _ := strconv.Atoi(param1)
+	w.Write([]byte(fmt.Sprintf(defaultMetrics, i)))
 }
 
 func main() {
