@@ -19,333 +19,258 @@ func headers(w http.ResponseWriter, req *http.Request) {
 }
 
 var defaultMetrics = `
-[{
-  "label": "Describe metric list",
-  "value": "DescribeMetricList",
-  "payloads": [{
-    "label": "Namespace",
-    "name": "namespace",
-    "type": "select",
-    "defaultValue": "acs_mongodb",
-    "placeholder": "Please select namespace",
-    "reloadMetric": true,
-    "options": [{
-      "label": "acs_mongodb",
-      "value": "acs_mongodb"
-    },{
-      "label": "acs_rds",
-      "value": "acs_rds"
-    }]
-  },{
-    "name": "metric",
-    "type": "select"
-  }]
-},{
-  "value": "DescribeMetricLast",
-  "payloads": [{
-    "name": "namespace",
-    "type": "select"
-  },{
-    "name": "metric",
-    "type": "input"
-  },{
-    "name": "instanceId",
-    "type": "multi-select"
-  }]
-}]
-`
-var rdsMetrics = `
-[{
-  "label": "Describe metric list",
-  "value": "DescribeMetricList",
-  "payloads": [{
-    "label": "Namespace",
-    "name": "namespace",
-    "type": "select",
-    "defaultValue": "acs_mongodb",
-    "placeholder": "Please select namespace",
-    "reloadMetric": true,
-    "options": [{
-      "label": "acs_mongodb",
-      "value": "acs_mongodb"
-    },{
-      "label": "acs_rds",
-      "value": "acs_rds"
-    }]
-  },{
-    "name": "metric",
-    "type": "select"
-  },{
-    "name": "instanceId",
-    "type": "select"
-  }]
-},{
-  "value": "DescribeMetricLast",
-  "payloads": [{
-    "name": "namespace",
-    "type": "select"
-  },{
-    "name": "metric",
-    "type": "input"
-  },{
-    "name": "instanceId",
-    "type": "multi-select"
-  }]
-}]
-`
-
-var testData = `[
-	{
-	  "id": 0,
-	  "time": 1698853664,
-	  "value": 13
-	},
-	{
-	  "id": 1,
-	  "time": 1698853964,
-	  "value": 35
-	},
-	{
-	  "id": 2,
-	  "time": 1698854264,
-	  "value": 86
-	},
-	{
-	  "id": 3,
-	  "time": 1698854564,
-	  "value": 96
-	},
-	{
-	  "id": 4,
-	  "time": 1698854864,
-	  "value": 86
-	},
-	{
-	  "id": 5,
-	  "time": 1698855164,
-	  "value": 71
-	},
-	{
-	  "id": 6,
-	  "time": 1698855464,
-	  "value": 95
-	},
-	{
-	  "id": 7,
-	  "time": 1698855764,
-	  "value": 26
-	},
-	{
-	  "id": 8,
-	  "time": 1698856064,
-	  "value": 56
-	},
-	{
-	  "id": 9,
-	  "time": 1698856364,
-	  "value": 44
-	},
-	{
-	  "id": 10,
-	  "time": 1698856664,
-	  "value": 97
-	},
-	{
-	  "id": 11,
-	  "time": 1698856964,
-	  "value": 42
-	},
-	{
-	  "id": 12,
-	  "time": 1698857264,
-	  "value": 46
-	},
-	{
-	  "id": 13,
-	  "time": 1698857564,
-	  "value": 12
-	},
-	{
-	  "id": 14,
-	  "time": 1698857864,
-	  "value": 98
-	},
-	{
-	  "id": 15,
-	  "time": 1698858164,
-	  "value": 66
-	},
-	{
-	  "id": 16,
-	  "time": 1698858464,
-	  "value": 23
-	},
-	{
-	  "id": 17,
-	  "time": 1698858764,
-	  "value": 75
-	},
-	{
-	  "id": 18,
-	  "time": 1698859064,
-	  "value": 30
-	},
-	{
-	  "id": 19,
-	  "time": 1698859364,
-	  "value": 31
-	},
-	{
-	  "id": 20,
-	  "time": 1698859664,
-	  "value": 94
-	},
-	{
-	  "id": 21,
-	  "time": 1698859964,
-	  "value": 3
-	},
-	{
-	  "id": 22,
-	  "time": 1698860264,
-	  "value": 2
-	},
-	{
-	  "id": 23,
-	  "time": 1698860564,
-	  "value": 56
-	},
-	{
-	  "id": 24,
-	  "time": 1698860864,
-	  "value": 36
-	},
-	{
-	  "id": 25,
-	  "time": 1698861164,
-	  "value": 88
-	},
-	{
-	  "id": 26,
-	  "time": 1698861464,
-	  "value": 61
-	},
-	{
-	  "id": 27,
-	  "time": 1698861764,
-	  "value": 87
-	},
-	{
-	  "id": 28,
-	  "time": 1698862064,
-	  "value": 38
-	},
-	{
-	  "id": 29,
-	  "time": 1698862364,
-	  "value": 96
-	},
-	{
-	  "id": 30,
-	  "time": 1698862664,
-	  "value": 93
-	},
-	{
-	  "id": 31,
-	  "time": 1698862964,
-	  "value": 82
-	},
-	{
-	  "id": 32,
-	  "time": 1698863264,
-	  "value": 77
-	},
-	{
-	  "id": 33,
-	  "time": 1698863564,
-	  "value": 27
-	},
-	{
-	  "id": 34,
-	  "time": 1698863864,
-	  "value": 94
-	},
-	{
-	  "id": 35,
-	  "time": 1698864164,
-	  "value": 4
-	},
-	{
-	  "id": 36,
-	  "time": 1698864464,
-	  "value": 62
-	},
-	{
-	  "id": 37,
-	  "time": 1698864764,
-	  "value": 62
-	},
-	{
-	  "id": 38,
-	  "time": 1698865064,
-	  "value": 20
-	},
-	{
-	  "id": 39,
-	  "time": 1698865364,
-	  "value": 43
-	},
-	{
-	  "id": 40,
-	  "time": 1698865664,
-	  "value": 80
-	},
-	{
-	  "id": 41,
-	  "time": 1698865964,
-	  "value": 54
-	},
-	{
-	  "id": 42,
-	  "time": 1698866264,
-	  "value": 52
-	},
-	{
-	  "id": 43,
-	  "time": 1698866564,
-	  "value": 81
-	},
-	{
-	  "id": 44,
-	  "time": 1698866864,
-	  "value": 28
-	},
-	{
-	  "id": 45,
-	  "time": 1698867164,
-	  "value": 31
-	},
-	{
-	  "id": 46,
-	  "time": 1698867464,
-	  "value": 14
-	},
-	{
-	  "id": 47,
-	  "time": 1698867764,
-	  "value": 52
-	},
-	{
-	  "id": 48,
-	  "time": 1698868064,
-	  "value": 35
-	},
-	{
-	  "id": 49,
-	  "time": 1698868364,
-	  "value": 50
-	}
-  ]
+[
+  {
+    "id": 0,
+    "time": 1698848364,
+    "value": 52
+  },
+  {
+    "id": 1,
+    "time": 1698848664,
+    "value": 14
+  },
+  {
+    "id": 2,
+    "time": 1698848964,
+    "value": 100
+  },
+  {
+    "id": 3,
+    "time": 1698849264,
+    "value": 34
+  },
+  {
+    "id": 4,
+    "time": 1698849564,
+    "value": 68
+  },
+  {
+    "id": 5,
+    "time": 1698849864,
+    "value": 80
+  },
+  {
+    "id": 6,
+    "time": 1698850164,
+    "value": 27
+  },
+  {
+    "id": 7,
+    "time": 1698850464,
+    "value": 7
+  },
+  {
+    "id": 8,
+    "time": 1698850764,
+    "value": 26
+  },
+  {
+    "id": 9,
+    "time": 1698851064,
+    "value": 95
+  },
+  {
+    "id": 10,
+    "time": 1698851364,
+    "value": 68
+  },
+  {
+    "id": 11,
+    "time": 1698851664,
+    "value": 9
+  },
+  {
+    "id": 12,
+    "time": 1698851964,
+    "value": 59
+  },
+  {
+    "id": 13,
+    "time": 1698852264,
+    "value": 93
+  },
+  {
+    "id": 14,
+    "time": 1698852564,
+    "value": 22
+  },
+  {
+    "id": 15,
+    "time": 1698852864,
+    "value": 66
+  },
+  {
+    "id": 16,
+    "time": 1698853164,
+    "value": 2
+  },
+  {
+    "id": 17,
+    "time": 1698853464,
+    "value": 84
+  },
+  {
+    "id": 18,
+    "time": 1698853764,
+    "value": 50
+  },
+  {
+    "id": 19,
+    "time": 1698854064,
+    "value": 70
+  },
+  {
+    "id": 20,
+    "time": 1698854364,
+    "value": 99
+  },
+  {
+    "id": 21,
+    "time": 1698854664,
+    "value": 3
+  },
+  {
+    "id": 22,
+    "time": 1698854964,
+    "value": 98
+  },
+  {
+    "id": 23,
+    "time": 1698855264,
+    "value": 95
+  },
+  {
+    "id": 24,
+    "time": 1698855564,
+    "value": 76
+  },
+  {
+    "id": 25,
+    "time": 1698855864,
+    "value": 15
+  },
+  {
+    "id": 26,
+    "time": 1698856164,
+    "value": 71
+  },
+  {
+    "id": 27,
+    "time": 1698856464,
+    "value": 6
+  },
+  {
+    "id": 28,
+    "time": 1698856764,
+    "value": 71
+  },
+  {
+    "id": 29,
+    "time": 1698857064,
+    "value": 63
+  },
+  {
+    "id": 30,
+    "time": 1698857364,
+    "value": 18
+  },
+  {
+    "id": 31,
+    "time": 1698857664,
+    "value": 44
+  },
+  {
+    "id": 32,
+    "time": 1698857964,
+    "value": 59
+  },
+  {
+    "id": 33,
+    "time": 1698858264,
+    "value": 27
+  },
+  {
+    "id": 34,
+    "time": 1698858564,
+    "value": 75
+  },
+  {
+    "id": 35,
+    "time": 1698858864,
+    "value": 26
+  },
+  {
+    "id": 36,
+    "time": 1698859164,
+    "value": 66
+  },
+  {
+    "id": 37,
+    "time": 1698859464,
+    "value": 82
+  },
+  {
+    "id": 38,
+    "time": 1698859764,
+    "value": 49
+  },
+  {
+    "id": 39,
+    "time": 1698860064,
+    "value": 87
+  },
+  {
+    "id": 40,
+    "time": 1698860364,
+    "value": 84
+  },
+  {
+    "id": 41,
+    "time": 1698860664,
+    "value": 74
+  },
+  {
+    "id": 42,
+    "time": 1698860964,
+    "value": 84
+  },
+  {
+    "id": 43,
+    "time": 1698861264,
+    "value": 18
+  },
+  {
+    "id": 44,
+    "time": 1698861564,
+    "value": 14
+  },
+  {
+    "id": 45,
+    "time": 1698861864,
+    "value": 17
+  },
+  {
+    "id": 46,
+    "time": 1698862164,
+    "value": 64
+  },
+  {
+    "id": 47,
+    "time": 1698862464,
+    "value": 81
+  },
+  {
+    "id": 48,
+    "time": 1698862764,
+    "value": 34
+  },
+  {
+    "id": 49,
+    "time": 1698863064,
+    "value": 100
+  }
+]
 `
 
 type MetricsRequest struct {
